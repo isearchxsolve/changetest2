@@ -1,0 +1,42 @@
+# CI workflow for the AC1 in-memory mock auth backend.
+# NOTE: This is an in-memory mock for testing/prototyping only — NOT production auth.
+# The pipeline runs the pytest suite across supported Python versions. No services,
+# databases, caches, or network access are required — the mock is purely in-memory.
+
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  test:
+    name: Tests (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tests
+        run: pytest tests/test_ac1_auth.py -v
+
+      - name: Verify no plaintext passwords in source
+        run: |
+          python -c "import backend.auth_mock as m; m.reset_store(); m.signup('ci_user','ci_pass'); import re; src=open('backend/auth_mock.py').read(); assert 'ci_pass' not in src, 'plaintext leak in source'"

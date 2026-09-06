@@ -1,0 +1,105 @@
+{
+  "version": 1,
+  "goal": "Build a minimal auth backend: a mock user store in backend/auth_mock.py with signup(username, password) and login(username, password) functions, plus a Project model with create_project(owner, name). Write tests/test_ac1_auth.py covering the full flow: signup a user, log them in, create a project under that user, and assert the project is associated with the correct owner. Required behavior (backend/auth_mock.py): - signup(username, password): registers a user, returns a user object. Raises ValueError on: duplicate username, empty username, empty password, username or password that is only whitespace. - login(username, password): returns the user object on correct credentials. Raises ValueError on: unknown username, wrong password, empty username, empty password. - Passwords are never stored in plaintext (salted hash via hashlib, e.g. pbkdf2_hmac). - create_project(owner, name): creates and returns a Project with a unique id, the given owner, and the given name. Raises ValueError if owner is not a signed-up user, or if name is empty. - Project isolation: projects created under one owner must not appear when listing/querying another owner's projects. - reset_store(): clears all in-memory state, for test isolation between test functions. Required test coverage in tests/test_ac1_auth.py (minimum 10 distinct test functions, each testing exactly one behavior so failures are unambiguous): 1. Signup succeeds and returns a user with the correct username. 2. Signup with a duplicate username raises ValueError (existing user is untouched). 3. Signup with an empty username raises ValueError. 4. Signup with an empty password raises ValueError. 5. Signup with a whitespace-only username or password raises ValueError. 6. Login with correct credentials returns the matching user. 7. Login with a wrong password raises ValueError. 8. Login with an unknown username raises ValueError. 9. Password is never stored in plaintext (inspect the store directly and assert the raw password string is not present). 10. create_project returns a Project with the correct owner and name. 11. create_project under a username that never signed up raises ValueError. 12. Two projects created under the same owner are both retrievable and distinct (different ids). 13. A project created under one user is not visible/returned when querying another user's projects. 14. Full integration flow: signup -> login -> create_project -> assert project.owner matches the logged-in username. Use a pytest fixture (or explicit reset_store() calls) so every test starts from a clean store, independent of test execution order. Prefer plain assert statements with pytest.raises(ValueError) for the failure cases. Import everything under test from backend.auth_mock - no reimplementation of the logic in the test file. Non-functional requirements: Python 3.8+, stdlib + pytest only (no external dependencies), no network/filesystem/database access, deterministic behavior for identical inputs, module and test file both include a short docstring/comment noting this is an in-memory mock and not production auth.",
+  "phase": "implementation",
+  "completed_phases": [
+    "architecture",
+    "design",
+    "planning"
+  ],
+  "autopilot_active": false,
+  "autopilot_resume": true,
+  "sdlc_phase_idx": 3,
+  "stack": [],
+  "entrypoints": [],
+  "test_command": "pytest tests/test_ac1_auth.py -v",
+  "key_modules": [],
+  "last_failures": [
+    "program: pytest tests/test_ac1_auth.py -v\nexit: 0\n============================= test session starts =============================\nplatform win32 -- Python 3.11.9, pytest-9.0.3, pluggy-1.6.0 -- C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe\ncachedir: .pytest_cache\nmetadata: {'Python': '3.11.9', 'Platform': 'Windows-10-10.0.19045-SP0', 'Packages': {'pytest': '9.0.3', 'pluggy': '1.6.0'}, 'Plugins': {'anyio': '4.12.1', 'asyncio': '1.4.0', 'cov': '7.1.0', 'html': '4.2.0', 'metadata",
+    "program: pytest tests/test_ac1_auth.py -v\nexit: 0\n============================= test session starts =============================\nplatform win32 -- Python 3.11.9, pytest-9.0.3, pluggy-1.6.0 -- C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe\ncachedir: .pytest_cache\nmetadata: {'Python': '3.11.9', 'Platform': 'Windows-10-10.0.19045-SP0', 'Packages': {'pytest': '9.0.3', 'pluggy': '1.6.0'}, 'Plugins': {'anyio': '4.12.1', 'asyncio': '1.4.0', 'cov': '7.1.0', 'html': '4.2.0', 'metadata",
+    "program: pytest tests/test_ac1_auth.py -v\nexit: 0\n============================= test session starts =============================\nplatform win32 -- Python 3.11.9, pytest-9.0.3, pluggy-1.6.0 -- C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe\ncachedir: .pytest_cache\nmetadata: {'Python': '3.11.9', 'Platform': 'Windows-10-10.0.19045-SP0', 'Packages': {'pytest': '9.0.3', 'pluggy': '1.6.0'}, 'Plugins': {'anyio': '4.12.1', 'asyncio': '1.4.0', 'cov': '7.1.0', 'html': '4.2.0', 'metadata",
+    "program: pytest tests/test_ac1_auth.py -v\nexit: 0\n============================= test session starts =============================\nplatform win32 -- Python 3.11.9, pytest-9.0.3, pluggy-1.6.0 -- C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe\ncachedir: .pytest_cache\nmetadata: {'Python': '3.11.9', 'Platform': 'Windows-10-10.0.19045-SP0', 'Packages': {'pytest': '9.0.3', 'pluggy': '1.6.0'}, 'Plugins': {'anyio': '4.12.1', 'asyncio': '1.4.0', 'cov': '7.1.0', 'html': '4.2.0', 'metadata",
+    "program: pytest tests/test_ac1_auth.py -v\nexit: 0\n============================= test session starts =============================\nplatform win32 -- Python 3.11.9, pytest-9.0.3, pluggy-1.6.0 -- C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe\ncachedir: .pytest_cache\nmetadata: {'Python': '3.11.9', 'Platform': 'Windows-10-10.0.19045-SP0', 'Packages': {'pytest': '9.0.3', 'pluggy': '1.6.0'}, 'Plugins': {'anyio': '4.12.1', 'asyncio': '1.4.0', 'cov': '7.1.0', 'html': '4.2.0', 'metadata",
+    "program: pytest tests/test_ac1_auth.py -v\nexit: 0\n============================= test session starts =============================\nplatform win32 -- Python 3.11.9, pytest-9.0.3, pluggy-1.6.0 -- C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe\ncachedir: .pytest_cache\nmetadata: {'Python': '3.11.9', 'Platform': 'Windows-10-10.0.19045-SP0', 'Packages': {'pytest': '9.0.3', 'pluggy': '1.6.0'}, 'Plugins': {'anyio': '4.12.1', 'asyncio': '1.4.0', 'cov': '7.1.0', 'html': '4.2.0', 'metadata",
+    "program: pytest tests/test_ac1_auth.py -v\nexit: 0\n============================= test session starts =============================\nplatform win32 -- Python 3.11.9, pytest-9.0.3, pluggy-1.6.0 -- C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe\ncachedir: .pytest_cache\nmetadata: {'Python': '3.11.9', 'Platform': 'Windows-10-10.0.19045-SP0', 'Packages': {'pytest': '9.0.3', 'pluggy': '1.6.0'}, 'Plugins': {'anyio': '4.12.1', 'asyncio': '1.4.0', 'cov': '7.1.0', 'html': '4.2.0', 'metadata",
+    "program: pytest tests/test_ac1_auth.py -v\nexit: 0\n============================= test session starts =============================\nplatform win32 -- Python 3.11.9, pytest-9.0.3, pluggy-1.6.0 -- C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe\ncachedir: .pytest_cache\nmetadata: {'Python': '3.11.9', 'Platform': 'Windows-10-10.0.19045-SP0', 'Packages': {'pytest': '9.0.3', 'pluggy': '1.6.0'}, 'Plugins': {'anyio': '4.12.1', 'asyncio': '1.4.0', 'cov': '7.1.0', 'html': '4.2.0', 'metadata",
+    "program: pytest tests/test_ac1_auth.py -v\nexit: 0\n============================= test session starts =============================\nplatform win32 -- Python 3.11.9, pytest-9.0.3, pluggy-1.6.0 -- C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe\ncachedir: .pytest_cache\nmetadata: {'Python': '3.11.9', 'Platform': 'Windows-10-10.0.19045-SP0', 'Packages': {'pytest': '9.0.3', 'pluggy': '1.6.0'}, 'Plugins': {'anyio': '4.12.1', 'asyncio': '1.4.0', 'cov': '7.1.0', 'html': '4.2.0', 'metadata",
+    "program: pytest tests/test_ac1_auth.py -v\nexit: 0\n============================= test session starts =============================\nplatform win32 -- Python 3.11.9, pytest-9.0.3, pluggy-1.6.0 -- C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe\ncachedir: .pytest_cache\nmetadata: {'Python': '3.11.9', 'Platform': 'Windows-10-10.0.19045-SP0', 'Packages': {'pytest': '9.0.3', 'pluggy': '1.6.0'}, 'Plugins': {'anyio': '4.12.1', 'asyncio': '1.4.0', 'cov': '7.1.0', 'html': '4.2.0', 'metadata"
+  ],
+  "open_todos": [
+    {
+      "id": "T001",
+      "content": "Design User data model with username, password_hash, and salt fields",
+      "status": "done"
+    },
+    {
+      "id": "T002",
+      "content": "Implement signup function with validation and password hashing using pbkdf2_hmac",
+      "status": "done"
+    },
+    {
+      "id": "T003",
+      "content": "Implement login function with credential verification",
+      "status": "done"
+    },
+    {
+      "id": "T004",
+      "content": "Implement create_project function with owner validation",
+      "status": "done"
+    },
+    {
+      "id": "T005",
+      "content": "Write comprehensive test file with 14 test cases covering all requirements",
+      "status": "done"
+    },
+    {
+      "id": "T006",
+      "content": "Run tests and verify all acceptance criteria are met",
+      "status": "done"
+    }
+  ],
+  "decisions": [
+    "tests ok: pytest tests/test_ac1_auth.py -v",
+    "tests ok: pytest tests/test_ac1_auth.py -v",
+    "captured 1 acceptance criteria from PLAN.md",
+    "tests ok: pytest tests/test_ac1_auth.py -v",
+    "tests ok: pytest tests/test_ac1_auth.py -v",
+    "tests ok: pytest tests/test_ac1_auth.py -v",
+    "tests ok: pytest tests/test_ac1_auth.py -v",
+    "tests ok: pytest tests/test_ac1_auth.py -v",
+    "tests ok: pytest tests/test_ac1_auth.py -v",
+    "tests ok: pytest tests/test_ac1_auth.py -v",
+    "tests ok: pytest tests/test_ac1_auth.py -v",
+    "tests ok: pytest tests/test_ac1_auth.py -v",
+    "tests ok: pytest tests/test_ac1_auth.py -v",
+    "tests ok: pytest tests/test_ac1_auth.py -v",
+    "tests ok: pytest tests/test_ac1_auth.py -v",
+    "tests ok: pytest tests/test_ac1_auth.py -v",
+    "tests ok: pytest tests/test_ac1_auth.py -v",
+    "tests ok: pytest tests/test_ac1_auth.py -v",
+    "tests ok: pytest tests/test_ac1_auth.py -v"
+  ],
+  "blockers": [
+    "implementation: gate not met after 40 rounds — autopilot halted",
+    "implementation STALLED: gate not met after 40 rounds. Autopilot halted; phase not marked complete."
+  ],
+  "next_action": "todo: Run tests and verify all acceptance criteria are met",
+  "research_notes": [
+    "search:python hashlib pbkdf2_hmac salted password hashing best practice in-memory auth mock",
+    "search:pytest fixture reset store test isolation order independence best practice",
+    "browse:https://docs.python.org/3/library/hashlib.html#hashlib.pbkdf2_hmac",
+    "browse:https://docs.python.org/3/library/hashlib.html#hashlib.pbkdf2_hmac",
+    "search:python pbkdf2_hmac hexdigest salt os.urandom example",
+    "search:python uuid uuid4 unique project id lightweight stdlib"
+  ],
+  "src_write_paths": [
+    "backend/auth_mock.py",
+    "tests/test_ac1_auth.py",
+    "backend/__init__.py",
+    "tests/__init__.py"
+  ],
+  "acceptance_criteria": [
+    "TODO: fill in acceptance criteria."
+  ],
+  "updated_at": "2026-08-02T12:10:11"
+}

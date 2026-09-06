@@ -1,0 +1,4 @@
+# Auth Backend (AC1) runtime/test dependencies.
+# The application itself uses Python standard library only (hashlib, os, uuid).
+# pytest is the only external dependency, required for running the test suite.
+pytest>=7.0,<10.0

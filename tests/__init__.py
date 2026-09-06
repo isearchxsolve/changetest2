@@ -1,0 +1,1 @@
+"""Tests package for the in-memory mock auth system (AC1)."""

@@ -1,0 +1,27 @@
+# Minimal project configuration for the AC1 in-memory mock auth backend.
+# NOTE: This is an in-memory mock for testing/prototyping only — NOT production auth.
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "auth-mock-ac1"
+version = "0.1.0"
+description = "In-memory mock authentication backend (AC1) — NOT production auth."
+requires-python = ">=3.8"
+license = {text = "MIT"}
+readme = "PLAN.md"
+dependencies = []
+
+[project.optional-dependencies]
+test = ["pytest>=7.0,<10.0"]
+
+[tool.setuptools]
+packages = ["backend"]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-ra"

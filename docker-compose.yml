@@ -1,0 +1,14 @@
+# docker-compose for the AC1 in-memory mock auth backend.
+# NOTE: This is an in-memory mock for testing/prototyping only — NOT production auth.
+# The service runs the pytest suite in an isolated container. There are no
+# dependent services (no DB, no cache, no network) — state is purely in-memory
+# and reset between tests via reset_store().
+
+services:
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["pytest", "tests/test_ac1_auth.py", "-v"]
+    # No ports, volumes, or secrets — in-memory only.
+    restart: "no"
